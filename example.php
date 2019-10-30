@@ -1,8 +1,5 @@
-# monolog-context
-A utility to create monolog context, timers and counters.
+<?php
 
-## Create a logger
-```php
 require 'vendor/autoload.php';
 
 use Monolog\Logger;
@@ -15,10 +12,12 @@ $logger->info('Generic Logger');
 
 // Set the default logge
 LogContext::setDefaultLogger($logger);
-```
 
-## Create a LogContext
-```php
+
+/**
+ * Define a LogContext
+ */
+echo '# Loggers' . PHP_EOL;
 $cx = new LogContext();
 $cx->setLogger($logger);
 $cx->info('Using manually set logger');
@@ -33,10 +32,12 @@ $cx->info('This will not log');
 // set the default logger
 LogContext::setDefaultLogger($logger);
 $cx->info('Using the default logger');
-```
 
-## Add Context
-```php
+
+/**
+ * Context
+ */
+echo '# Context' . PHP_EOL;
 $cx = new LogContext(['Tyrion' => 'good']);
 
 // log with context
@@ -56,10 +57,11 @@ $cx->info('This will log with replaced context');
 // remove all context
 $cx->setContext();
 $cx->info('No context added');
-```
 
-## Counters
-```php
+/**
+ * Counters
+ */
+echo '# Counters' . PHP_EOL;
 $cx = new LogContext();
 
 $cx->addCounter('apples');
@@ -89,10 +91,12 @@ $cx->withCounter('hello', 'world')
 // set the counter key
 $cx->setCounterKey('_c');
 $cx->info('Using a different counter key', ['_c' => 'fruits']);
-```
 
-## Timers
-```php
+
+/**
+ * Timers
+ */
+echo '# Timers' . PHP_EOL;
 $cx = new LogContext();
 
 // create a timer
@@ -117,4 +121,3 @@ print_r($cx->getCounters());
 // set the counter key
 $cx->setTimerKey('_t');
 $cx->info('Using a different timer key', ['_t' => 'start']);
-```
