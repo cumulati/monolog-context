@@ -11,7 +11,7 @@ trait CtxId
 	 *
 	 * @var bool
 	 */
-	private static $appendCtxIdDefault = false;
+	private static $defaultAppendCtxId = false;
 
 	/**
 	 * Do we include ids
@@ -56,9 +56,9 @@ trait CtxId
 	 *
 	 * @param bool $include should we include id by default
 	 */
-	public static function setAppendCtxIdDefault(bool $include)
+	public static function setDefaultAppendCtxId(bool $include)
 	{
-		static::$appendCtxIdDefault = $include;
+		static::$defaultAppendCtxId = $include;
 	}
 
 	/**
@@ -66,9 +66,9 @@ trait CtxId
 	 *
 	 * @return bool
 	 */
-	public static function getAppendCtxIdDefault()
+	public static function getDefaultAppendCtxId()
 	{
-		return static::$appendCtxIdDefault;
+		return static::$defaultAppendCtxId;
 	}
 
 	/**
@@ -78,7 +78,7 @@ trait CtxId
 	 */
 	public function getAppendCtxId(): bool
 	{
-		return $this->appendCtxId ?? static::getAppendCtxIdDefault();
+		return $this->appendCtxId ?? static::getDefaultAppendCtxId();
 	}
 
 	/**

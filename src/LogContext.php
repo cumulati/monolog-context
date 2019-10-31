@@ -50,7 +50,7 @@ class LogContext
 		if ($appendCtxId !== null) {
 			$this->setAppendCtxId($appendCtxId);
 		} else {
-			$this->setAppendCtxId(static::$appendCtxIdDefault);
+			$this->setAppendCtxId(static::getDefaultAppendCtxId());
 		}
 
 		$this->ctxId = $this->generateCtxId();

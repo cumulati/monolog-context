@@ -152,6 +152,10 @@ $cx->info('Different ctx key');
 // remove custom ctxIdKey
 $cx->setCtxIdKey(null);
 
+// default to appending ctxId
+LogContext::setDefaultAppendCtxId(true);
+
 // Set default ctxId key
 LogContext::setDefaultKeyCtxId('___');
+$cx = new LogContext();
 $cx->info('Apple');
