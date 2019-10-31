@@ -89,6 +89,12 @@ $cx->withCounter('hello', 'world')
 // set the counter key
 $cx->setCounterKey('_c');
 $cx->info('Using a different counter key', ['_c' => 'fruits']);
+
+// Set the default counter key
+LogContext::setDefaultKeyCounter('C');
+$cx = new LogContext();
+$cx->addCounter('t');
+$cx->info('This has default counter key', ['C' => 't']);
 ```
 
 ## Timers
@@ -117,4 +123,30 @@ print_r($cx->getCounters());
 // set the counter key
 $cx->setTimerKey('_t');
 $cx->info('Using a different timer key', ['_t' => 'start']);
+
+// Set the default timer key
+LogContext::setDefaultKeyTimer('T');
+$cx = new LogContext();
+$cx->addTimer('x');
+usleep(10000);
+$cx->info('This has default timer key', ['T' => 'x']);
+```
+
+# Context Ids
+```php
+$cx = new LogContext();
+$cx->setAppendCtxId(true);
+$cx->info('Add context id');
+$cx->info('Which is shared with all messages through this context');
+
+// set the ctxId key
+$cx->setCtxIdKey('_');
+$cx->info('Different ctx key');
+
+// remove custom ctxIdKey
+$cx->setCtxIdKey(null);
+
+// Set default ctxId key
+LogContext::setDefaultKeyCtxId('___');
+$cx->info('Apple');
 ```

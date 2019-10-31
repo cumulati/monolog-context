@@ -15,7 +15,14 @@ trait Timers
 	 *
 	 * @var string
 	 */
-	private $keyTimer = '_timer';
+	private $keyTimer;
+
+	/**
+	 * The default timer key
+	 *
+	 * @var string
+	 */
+	private static $defaultKeyTimer = '_timer';
 
 	/**
 	 * Timers to attach to next log message
@@ -90,6 +97,36 @@ trait Timers
 	}
 
 	/**
+	 * Get the timer key
+	 *
+	 * @return string
+	 */
+	public function getTimerKey(): string
+	{
+		return $this->keyTimer ?? static::getDefaultKeyTimer();
+	}
+
+	/**
+	 * Set the default key timer
+	 *
+	 * @param string $key the default timer key
+	 */
+	public static function setDefaultKeyTimer(string $key)
+	{
+		static::$defaultKeyTimer = $key;
+	}
+
+	/**
+	 * Get the default key timer
+	 *
+	 * @return string
+	 */
+	public static function getDefaultKeyTimer(): string
+	{
+		return static::$defaultKeyTimer;
+	}
+
+	/**
 	 * Attach a timer to the next log message
 	 *
 	 * @param string ...$timer the timer(s)
@@ -110,10 +147,11 @@ trait Timers
 	private function applyTimers(array $context):? array
 	{
 		$timers = [];
+		$key = $this->getTimerKey();
 
 		// pull timers from context
-		if (array_key_exists($this->keyTimer, $context)) {
-			$timers = $context[$this->keyTimer];
+		if (array_key_exists($key, $context)) {
+			$timers = $context[$key];
 			if (! is_array($timers)) {
 				$timers = [$timers];
 			}

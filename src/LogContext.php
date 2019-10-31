@@ -6,32 +6,54 @@ use Monolog\Logger;
 
 class LogContext
 {
+	use CtxId;
 	use Levels;
 	use Timers;
 	use Counters;
 
 	/**
 	 * The default logger to use
+	 *
 	 * @var Logger
 	 */
 	private static $defaultLogger = null;
 
 	/**
 	 * The logger
+	 *
 	 * @var Logger
 	 */
 	private $logger;
 
 	/**
 	 * The context
+	 *
 	 * @var array
 	 */
 	private $context = [];
 
-
-	public function __construct(array $ctx = [], Logger $logger = null)
+	/**
+	 * Instantiate a new LogContext
+	 *
+	 * @param array $ctx       intial context
+	 * @param bool $appendCtxId include ids with ctx data
+	 * @param Logger $logger   the logger
+	 */
+	public function __construct(
+		array $ctx = [],
+		bool $appendCtxId = null,
+		Logger $logger = null
+	)
 	{
 		$this->addContext($ctx);
+
+		if ($appendCtxId !== null) {
+			$this->setAppendCtxId($appendCtxId);
+		} else {
+			$this->setAppendCtxId(static::$appendCtxIdDefault);
+		}
+
+		$this->ctxId = $this->generateCtxId();
 
 		if ($logger !== null) {
 			$this->setLogger($logger);
@@ -83,12 +105,12 @@ class LogContext
 			return;
 		}
 
-		if (array_key_exists($this->keyTimer, $context)) {
-			unset($context[$this->keyTimer]);
+		if (array_key_exists($this->getTimerKey(), $context)) {
+			unset($context[$this->getTimerKey()]);
 		}
 
-		if (array_key_exists($this->keyCounter, $context)) {
-			unset($context[$this->keyCounter]);
+		if (array_key_exists($this->getCounterKey(), $context)) {
+			unset($context[$this->getCounterKey()]);
 		}
 
 		$this->context = array_replace_recursive($this->context, $context);
@@ -134,11 +156,15 @@ class LogContext
 		$context = array_replace_recursive($this->context, $context);
 
 		if (! empty($counts)) {
-			$context[$this->keyCounter] = $counts;
+			$context[$this->getCounterKey()] = $counts;
 		}
 
 		if (! empty($timers)) {
-			$context[$this->keyTimer] = $timers;
+			$context[$this->getTimerKey()] = $timers;
+		}
+
+		if ($this->getAppendCtxId()) {
+			$context[$this->getCtxIdKey()] = $this->getCtxId();
 		}
 
 		$logger->{$level}($message, $context);
