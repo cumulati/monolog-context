@@ -5,13 +5,15 @@ require 'vendor/autoload.php';
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Cumulati\Monolog\LogContext;
+use Monolog\Formatter\LineFormatter;
 
+$lineFormat = '%level_name% > %message% %context% %extra%' . PHP_EOL;
+$formatter = new LineFormatter($lineFormat);
 $logger = new Logger('context');
-$logger->pushHandler(new StreamHandler('php://stdout'));
+$handler = new StreamHandler('php://stdout');
+$handler->setFormatter($formatter);
+$logger->pushHandler($handler);
 $logger->info('Generic Logger');
-
-// Set the default logge
-LogContext::setDefaultLogger($logger);
 
 
 /**
@@ -121,10 +123,7 @@ usleep(10000);
 $cx->withTimer('start')
 ->info('Log with a timer inline');
 
-// get the counters
-print_r($cx->getCounters());
-
-// set the counter key
+// set the timer key
 $cx->setTimerKey('_t');
 $cx->info('Using a different timer key', ['_t' => 'start']);
 
@@ -159,3 +158,21 @@ LogContext::setDefaultAppendCtxId(true);
 LogContext::setDefaultKeyCtxId('___');
 $cx = new LogContext();
 $cx->info('Apple');
+
+// default to appending ctxId
+LogContext::setDefaultAppendCtxId(false);
+
+
+/**
+ * Levels
+ */
+echo '# Levels' . PHP_EOL;
+$cx = new LogContext();
+$cx->debug('This is a debug message');
+$cx->info('This is a info message');
+$cx->notice('This is a notice message');
+$cx->warning('This is a warning message');
+$cx->error('This is a error message');
+$cx->critical('This is a critical message');
+$cx->alert('This is a alert message');
+$cx->emergency('This is fine.');
