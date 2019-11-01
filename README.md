@@ -1,4 +1,4 @@
-- [monolog-context LogContext](#monolog-context-logcontext)
+- [About](#about)
 - [Create a logger](#create-a-logger)
 - [Create a LogContext](#create-a-logcontext)
 - [Add Context](#add-context)
@@ -7,7 +7,7 @@
 - [Context Ids](#context-ids)
 - [Levels](#levels)
 
-# monolog-context LogContext
+# About
 Easily maintain [monolog](https://github.com/Seldaek/monolog) context, timers and counters.
 
 # Create a logger
