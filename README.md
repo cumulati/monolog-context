@@ -1,7 +1,16 @@
-# monolog-context
-A utility to create monolog context, timers and counters.
+- [monolog-context LogContext](#monolog-context-logcontext)
+- [Create a logger](#create-a-logger)
+- [Create a LogContext](#create-a-logcontext)
+- [Add Context](#add-context)
+- [Counters](#counters)
+- [Timers](#timers)
+- [Context Ids](#context-ids)
+- [Levels](#levels)
 
-## Create a logger
+# monolog-context LogContext
+Easily maintain [monolog](https://github.com/Seldaek/monolog) context, timers and counters.
+
+# Create a logger
 ```php
 require 'vendor/autoload.php';
 
@@ -23,7 +32,7 @@ $logger->info('Generic Logger');
 INFO > Generic Logger [] []
 ```
 
-## Create a LogContext
+# Create a LogContext
 ```php
 $cx = new LogContext();
 $cx->setLogger($logger);
@@ -46,7 +55,7 @@ INFO > Using manually set logger [] []
 INFO > Using the default logger [] []
 ```
 
-## Add Context
+# Add Context
 ```php
 $cx = new LogContext(['Tyrion' => 'good']);
 
@@ -76,7 +85,7 @@ INFO > This will log with replaced context {"Dolores":"Evan Rachel Wood"} []
 INFO > No context added [] []
 ```
 
-## Counters
+# Counters
 ```php
 $cx = new LogContext();
 
@@ -131,7 +140,7 @@ INFO > Using a different counter key {"_c":{"fruits":1}} []
 INFO > This has default counter key {"C":{"t":1}} []
 ```
 
-## Timers
+# Timers
 ```php
 $cx = new LogContext();
 
