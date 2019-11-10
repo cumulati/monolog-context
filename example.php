@@ -56,6 +56,12 @@ $cx->info('This will override context', ['Tyrion' => 'bad']);
 $cx->setContext(['Dolores' => 'Evan Rachel Wood']);
 $cx->info('This will log with replaced context');
 
+$cx->addContext(['Bernard' => 'Jeffrey Wright']);
+$cx->info('Add context');
+$cx->deleteContext('Bernard');
+$cx->deleteContext(['multiple', 'removes']);
+$cx->info('Delete some context');
+
 // remove all context
 $cx->setContext();
 $cx->info('No context added');

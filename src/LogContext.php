@@ -117,6 +117,23 @@ class LogContext
 	}
 
 	/**
+	 * Delete context
+	 *
+	 * @param string|array $keys the keys in which to delete
+	 */
+	public function deleteContext($keys)
+	{
+		if (! is_array($keys)) {
+			unset($this->context[$keys]);
+			return;
+		}
+
+		foreach ($keys as $k) {
+			unset($this->context[$k]);
+		}
+	}
+
+	/**
 	 * Set the context, replacing existing context
 	 *
 	 * @param array $context the context
