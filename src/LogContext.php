@@ -43,8 +43,7 @@ class LogContext
 		array $ctx = [],
 		bool $appendCtxId = null,
 		Logger $logger = null
-	)
-	{
+	) {
 		$this->addContext($ctx);
 
 		if ($appendCtxId !== null) {
@@ -85,7 +84,7 @@ class LogContext
 	 *
 	 * @return Logger
 	 */
-	public function getLogger():? Logger
+	public function getLogger(): ?Logger
 	{
 		if ($this->logger) {
 			return $this->logger;
@@ -123,8 +122,7 @@ class LogContext
 	 */
 	public function deleteContext(...$keys)
 	{
-		foreach ($keys as $k)
-		{
+		foreach ($keys as $k) {
 			if (is_array($k)) {
 				return $this->deleteContext(...$k);
 			}
@@ -172,11 +170,11 @@ class LogContext
 		$timers = $this->applyTimers($context);
 		$context = array_replace_recursive($this->context, $context);
 
-		if (! empty($counts)) {
+		if (!empty($counts)) {
 			$context[$this->getCounterKey()] = $counts;
 		}
 
-		if (! empty($timers)) {
+		if (!empty($timers)) {
 			$context[$this->getTimerKey()] = $timers;
 		}
 
