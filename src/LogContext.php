@@ -52,9 +52,20 @@ class LogContext
 		$this->parent = $parent;
 		$this->ctxId = $this->generateCtxId();
 
-		if ($logger !== null) {
-			$this->setLogger($logger);
-		}
+		$this->addContext($ctx);
+	}
+
+	/**
+	 * Make a new LogContext
+	 *
+	 * @param array $ctx         initial context
+	 * @param LogContext $parent the parent context to extend
+	 */
+	public static function make(
+		array $ctx = [],
+		?LogContext $parent = null,
+	) {
+		return new static($ctx, $parent);
 	}
 
 	/**
