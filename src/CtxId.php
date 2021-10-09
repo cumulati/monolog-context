@@ -2,8 +2,6 @@
 
 namespace Cumulati\Monolog;
 
-use Closure;
-
 trait CtxId
 {
 	/**
@@ -136,6 +134,15 @@ trait CtxId
 	 */
 	public function generateCtxId(): string
 	{
+		if ($this->parent) {
+			$parentId = $this->parent->getCtxId();
+			if (strpos($parentId, '.') === false) {
+				$parentId .= '.';
+			}
+
+			return $this->ctxId = $parentId . dechex(rand(0, 16));
+		}
+
 		return $this->ctxId = substr(md5(rand() . rand()), 0, 16);
 	}
 }

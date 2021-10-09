@@ -33,25 +33,23 @@ class LogContext
 	private $context = [];
 
 	/**
+	 * Parent context, if extended
+	 *
+	 * @var LogContext
+	 */
+	private ?LogContext $parent = null;
+
+	/**
 	 * Instantiate a new LogContext
 	 *
-	 * @param array $ctx       intial context
-	 * @param bool $appendCtxId include ids with ctx data
-	 * @param Logger $logger   the logger
+	 * @param array $ctx         initial context
+	 * @param LogContext $parent the parent context to extend
 	 */
 	public function __construct(
 		array $ctx = [],
-		bool $appendCtxId = null,
-		Logger $logger = null
+		?LogContext $parent = null,
 	) {
-		$this->addContext($ctx);
-
-		if ($appendCtxId !== null) {
-			$this->setAppendCtxId($appendCtxId);
-		} else {
-			$this->setAppendCtxId(static::getDefaultAppendCtxId());
-		}
-
+		$this->parent = $parent;
 		$this->ctxId = $this->generateCtxId();
 
 		if ($logger !== null) {
