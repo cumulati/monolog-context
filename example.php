@@ -3,8 +3,8 @@
 require 'vendor/autoload.php';
 
 use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
 use Cumulati\Monolog\LogContext;
+use Monolog\Handler\StreamHandler;
 use Monolog\Formatter\LineFormatter;
 
 $lineFormat = '%level_name% > %message% %context% %extra%' . PHP_EOL;
@@ -182,3 +182,13 @@ $cx->error('This is a error message');
 $cx->critical('This is a critical message');
 $cx->alert('This is a alert message');
 $cx->emergency('This is fine.');
+
+echo '# Extended Context' . PHP_EOL;
+$cx = new LogContext(['apples' => 'good']);
+$ox = new LogContext([], $cx);
+$ox->info('extended context');
+$ex = new LogContext([], $ox);
+$ex->info('double extended context');
+
+echo '# Make Context' . PHP_EOL;
+LogContext::make(['make' => 'context'])->info('chain context creation');
