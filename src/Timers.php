@@ -42,18 +42,19 @@ trait Timers
 	 *
 	 * @param mixed $timers the timers to add
 	 */
-	public function addTimer(...$timers)
+	public function addTimer(...$timers): self
 	{
 		$time = microtime(true);
 
-		foreach ($timers as $c)
-		{
+		foreach ($timers as $c) {
 			if (is_array($c)) {
 				return $this->addTimer(...$c);
 			}
 
 			$this->timers[$c] = $time;
 		}
+
+		return $this;
 	}
 
 	/**
@@ -133,7 +134,7 @@ trait Timers
 	 */
 	public function withTimer(string ...$timer): self
 	{
-		if (! is_array($timer)) {
+		if (!is_array($timer)) {
 			$timer = [$timer];
 		}
 
@@ -144,7 +145,7 @@ trait Timers
 	/**
 	 * Get the timers
 	 */
-	private function applyTimers(array $context):? array
+	private function applyTimers(array $context): ?array
 	{
 		$timers = [];
 		$key = $this->getTimerKey();
@@ -152,13 +153,13 @@ trait Timers
 		// pull timers from context
 		if (array_key_exists($key, $context)) {
 			$timers = $context[$key];
-			if (! is_array($timers)) {
+			if (!is_array($timers)) {
 				$timers = [$timers];
 			}
 		}
 
 		// add inline timers
-		if (! empty($this->withTimers)) {
+		if (!empty($this->withTimers)) {
 			$timers = array_replace($timers, $this->withTimers);
 			$this->withTimers = [];
 		}
@@ -171,7 +172,7 @@ trait Timers
 		$data = [];
 		$time = microtime(true);
 		foreach ($timers as $timer) {
-			if (! array_key_exists($timer, $this->timers)) {
+			if (!array_key_exists($timer, $this->timers)) {
 				continue;
 			}
 
@@ -183,5 +184,4 @@ trait Timers
 
 		return empty($data) ? null : $data;
 	}
-
 }
