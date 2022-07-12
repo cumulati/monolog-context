@@ -107,10 +107,10 @@ class LogContext
 	 *
 	 * @param array $context the context to add
 	 */
-	public function addContext(array $context)
+	public function addContext(array $context): self
 	{
 		if (empty($context)) {
-			return;
+			return $this;
 		}
 
 		if (array_key_exists($this->getTimerKey(), $context)) {
@@ -122,6 +122,52 @@ class LogContext
 		}
 
 		$this->context = array_replace_recursive($this->context, $context);
+
+		return $this;
+	}
+
+	/**
+	 * Add a model to context
+	 *
+	 * @param object $model
+	 * @return self
+	 */
+	public function addModel(object $model): self
+	{
+		// if not a laravel model
+		if (!is_a($model, 'Illuminate\Database\Eloquent\Model')) {
+			return $this;
+		}
+
+		$parts = explode('\\', get_class($model));
+		$name = array_pop($parts);
+
+		return $this->addContext([
+			lcfirst($name) => $model->id,
+		]);
+	}
+
+	/**
+	 * Add a set of models to context
+	 *
+	 * @param object|array<object> ...$models
+	 * @return self
+	 */
+	public function addModels(...$models): self
+	{
+		if (array_key_exists(0, $models) && is_array($models[0])) {
+			$models = $models[0];
+		}
+
+		foreach ($models as $model) {
+			if (!is_object($model)) {
+				continue;
+			}
+
+			$this->addModel($model);
+		}
+
+		return $this;
 	}
 
 	/**

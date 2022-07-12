@@ -1,20 +1,30 @@
 {
-	"name": "cumulati/monolog-context",
-	"description": "A utility to create monolog context, timers and counters.",
-	"keywords": ["log", "logger", "monolog", "context", "timer", "counter"],
-	"homepage": "https://github.com/cumulati/monolog-context",
-	"type": "library",
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Patrick McCarren",
-			"email": "patrick@cumulative.io"
-		}
-	],
-	"require": {
-		"monolog/monolog": "^1.17|^2.0"
-	},
-	"autoload": {
-		"psr-4": {"Cumulati\\Monolog\\": "src/"}
-	}
+    "name": "cumulati/monolog-context",
+    "description": "A utility to create monolog context, timers and counters.",
+    "keywords": [
+        "log",
+        "logger",
+        "monolog",
+        "context",
+        "timer",
+        "counter"
+    ],
+    "homepage": "https://github.com/cumulati/monolog-context",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Patrick McCarren",
+            "email": "patrick@cumulative.io"
+        }
+    ],
+    "require": {
+        "php": ">=8.0.0",
+        "monolog/monolog": "^1.17|^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Cumulati\\Monolog\\": "src/"
+        }
+    }
 }
