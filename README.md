@@ -10,6 +10,14 @@
 # About
 Easily maintain [monolog](https://github.com/Seldaek/monolog) context, timers and counters.
 
+# Installation
+
+You can install the package via composer:
+
+```bash
+composer require cumulati/monolog-context
+```
+
 # Create a logger
 ```php
 require 'vendor/autoload.php';
