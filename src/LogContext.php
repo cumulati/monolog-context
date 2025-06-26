@@ -13,17 +13,14 @@ class LogContext
 
 	/**
 	 * The default logger to use
-	 *
-	 * @var Logger
 	 */
-	private static $defaultLogger = null;
+	private static ?Logger $defaultLogger = null;
 
 	/**
 	 * The logger
 	 *
-	 * @var Logger
 	 */
-	private $logger;
+	private ?Logger $logger = null;
 
 	/**
 	 * The context
@@ -71,9 +68,9 @@ class LogContext
 	/**
 	 * Set the logger
 	 *
-	 * @param Logger $logger
+	 * @param ?Logger $logger
 	 */
-	public function setLogger(Logger $logger = null)
+	public function setLogger(?Logger $logger = null)
 	{
 		$this->logger = $logger;
 	}
@@ -81,9 +78,9 @@ class LogContext
 	/**
 	 * Set the default logger
 	 *
-	 * @param Logger $logger
+	 * @param ?Logger $logger
 	 */
-	public static function setDefaultLogger(Logger $logger = null)
+	public static function setDefaultLogger(?Logger $logger = null)
 	{
 		static::$defaultLogger = $logger;
 	}
@@ -91,7 +88,7 @@ class LogContext
 	/**
 	 * Get the logger. Return default logger if none
 	 *
-	 * @return Logger
+	 * @return ?Logger
 	 */
 	public function getLogger(): ?Logger
 	{

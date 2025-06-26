@@ -92,7 +92,7 @@ trait CtxId
 	 *
 	 * @param string $key the CtxId Key
 	 */
-	public function setCtxIdKey(string $key = null)
+	public function setCtxIdKey(?string $key = null)
 	{
 		$this->keyCtxId = $key;
 	}
